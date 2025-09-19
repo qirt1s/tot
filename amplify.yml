@@ -1,0 +1,25 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        # Обновляем Node.js до нужной версии (Vite требует 20.19+ или 22.12+)
+        - nvm install 20
+        - nvm use 20
+        # Устанавливаем зависимости
+        - npm ci
+    build:
+      commands:
+        # Сборка проекта
+        - npm run build
+  artifacts:
+    # Папка с билдом Vite
+    baseDirectory: dist
+    files:
+      - '**/*'
+  cache:
+    # Кэширование для ускорения билда
+    paths:
+      - node_modules/**/*
+      - ~/.npm
+      - ~/.cache
